@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Herramientas Jurídicas para la Paz Vecinal - UBV</title>
+  <title>Comuna Negro Luis Villafaña - UBV</title>
   <link rel="stylesheet" href="style.css">
   <!-- Supabase CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <!-- FontAwesome Icons -->
+  <!-- Iconos FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-  <!-- Contenedor móvil central -->
+  <!-- Contenedor móvil -->
   <div class="mobile-container">
     
-    <!-- ENCABEZADO COMÚN: UBV (Izquierda) - COMUNA (Derecha) -->
+    <!-- ENCABEZADO COMÚN: UBV (Izquierda) y COMUNA (Derecha) -->
     <header class="app-header">
       <img src="IMAGENES/logo1.png" alt="Logo UBV" class="header-logo logo-ubv">
-      <img src="IMAGENES/logo2.png" alt="Logo Comuna Negro Luis Villafaña" class="header-logo logo-comuna">
+      <img src="IMAGENES/logo2.png" alt="Logo Comuna" class="header-logo logo-comuna">
     </header>
 
     <!-- PANTALLA 1: INICIO DE SESIÓN -->
@@ -50,14 +50,14 @@
     <!-- PANTALLA 2: MENÚ PRINCIPAL -->
     <section id="screen-main-menu" class="screen">
       <div class="user-card">
-        <div class="user-avatar-wrap" onclick="navigateTo('screen-perfil')" style="cursor: pointer;">
+        <div class="user-avatar-wrap">
           <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150" alt="Julio Mendoza" id="user-avatar">
         </div>
-        <div class="user-info" onclick="navigateTo('screen-perfil')" style="cursor: pointer;">
+        <div class="user-info">
           <h3 id="user-name">¡Bienvenido, Julio Mendoza!</h3>
           <p id="user-role">Vecino - Consejo Comunal "Pie de Lucha"</p>
         </div>
-        <div class="notification-badge-btn" onclick="alert('No tiene notificaciones pendientes')">
+        <div class="notification-badge-btn" onclick="alert('Sin notificaciones pendientes')">
           <i class="fa-regular fa-bell"></i>
           <span class="dot"></span>
         </div>
@@ -185,27 +185,19 @@
         <div class="emergency-list">
           <div class="emergency-item">
             <i class="fa-solid fa-truck-droplet text-red"></i>
-            <div>
-              <strong>Bomberos Metropolitanos:</strong> (0212) 545-45-45 / (0212) 541-71-33
-            </div>
+            <div><strong>Bomberos Metropolitanos:</strong> (0212) 545-45-45 / (0212) 541-71-33</div>
           </div>
           <div class="emergency-item">
             <i class="fa-solid fa-triangle-exclamation text-orange"></i>
-            <div>
-              <strong>Protección Civil Caracas:</strong> (0212) 575-1823
-            </div>
+            <div><strong>Protección Civil Caracas:</strong> (0212) 575-1823</div>
           </div>
           <div class="emergency-item">
             <i class="fa-solid fa-phone text-green"></i>
-            <div>
-              <strong>Emergencias Generales:</strong> 171 / 911 / *1
-            </div>
+            <div><strong>Emergencias Generales:</strong> 171 / 911 / *1</div>
           </div>
           <div class="emergency-item">
             <i class="fa-solid fa-passport text-blue"></i>
-            <div>
-              <strong>SAIME:</strong> 0800-7246300 (0800-SAIME)
-            </div>
+            <div><strong>SAIME:</strong> 0800-7246300 (0800-SAIME)</div>
           </div>
         </div>
       </div>
@@ -250,7 +242,6 @@
       <div class="chat-container">
         <div class="chat-messages" id="chat-messages">
           <div class="chat-bubble bot">
-            <div class="bot-badge"><i class="fa-solid fa-robot"></i></div>
             <p>¡Hola Julio Mendoza! ¿En qué consulta jurídica puedo ayudarte hoy?</p>
           </div>
         </div>
@@ -366,10 +357,10 @@
         <span>Menú Principal</span>
       </button>
       <button class="nav-item" id="nav-btn-profile" onclick="navigateTo('screen-perfil')">
-        <i class="fa-regular fa-user"></i>
+        <i class="fa-solid fa-user"></i>
         <span>Perfil</span>
       </button>
-      <button class="nav-item" id="nav-btn-notif" onclick="alert('No tiene notificaciones pendientes')">
+      <button class="nav-item" id="nav-btn-notif" onclick="alert('Bandeja de notificaciones vacía')">
         <i class="fa-regular fa-bell"></i>
         <span>Notificaciones</span>
       </button>
