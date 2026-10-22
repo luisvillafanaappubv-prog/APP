@@ -15,7 +15,7 @@
   <!-- Contenedor móvil -->
   <div class="mobile-container">
     
-    <!-- ENCABEZADO COMÚN: UBV (Izquierda) y COMUNA (Derecha) -->
+    <!-- ENCABEZADO COMÚN -->
     <header class="app-header">
       <img src="IMAGENES/LOGOAPP1.png" alt="Logo UBV" class="header-logo logo-ubv">
       <img src="IMAGENES/LOGOAPP2.png" alt="Logo Comuna" class="header-logo logo-comuna">
@@ -30,20 +30,19 @@
 
       <form id="form-login" class="auth-form">
         <label for="login-cedula">Cédula / Usuario</label>
-        <input type="text" id="login-cedula" placeholder="V-12345678" required>
+        <input type="text" id="login-cedula" placeholder="Ej: 19255985" required autocomplete="username">
 
         <label for="login-password">Contraseña</label>
         <div class="input-password-wrapper">
-          <input type="password" id="login-password" required>
+          <input type="password" id="login-password" required autocomplete="current-password">
           <i class="fa-solid fa-lock input-icon"></i>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-login">INICIAR SESIÓN</button>
+        <button type="submit" class="btn btn-primary btn-login" id="btn-login-submit">INICIAR SESIÓN</button>
       </form>
 
       <div class="login-footer">
-        <a href="#" id="link-forgot">¿Olvidó su contraseña?</a> | 
-        <a href="#" id="link-register">Registrarse en Mesa Comunitaria.</a>
+        <a href="#" id="link-forgot" onclick="alert('Comuníquese con el administrador comunal para restablecer su acceso.')">¿Olvidó su contraseña?</a>
       </div>
     </section>
 
@@ -242,7 +241,7 @@
       <div class="chat-container">
         <div class="chat-messages" id="chat-messages">
           <div class="chat-bubble bot">
-            <p>¡Hola Julio Mendoza! ¿En qué consulta jurídica puedo ayudarte hoy?</p>
+            <p id="chat-greeting">¡Hola! ¿En qué consulta jurídica puedo ayudarte hoy?</p>
           </div>
         </div>
         
@@ -262,49 +261,49 @@
       <div class="card-container white-card profile-card">
         <div class="profile-avatar-container">
           <div class="profile-avatar-wrap">
-            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150" alt="Julio Mendoza" id="profile-img">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150" alt="Avatar" id="profile-img">
             <div class="avatar-edit-badge" title="Cambiar foto">
               <i class="fa-solid fa-pen"></i>
             </div>
           </div>
-          <h3 class="profile-name">Julio Mendoza</h3>
-          <p class="profile-role">Vecino - Consejo Comunal "Pie de Lucha"</p>
+          <h3 class="profile-name" id="profile-card-name">Julio Mendoza</h3>
+          <p class="profile-role" id="profile-card-role">Vecino - Consejo Comunal "Pie de Lucha"</p>
         </div>
 
         <form id="form-perfil" class="profile-form">
           <div class="form-row">
             <label>Nombres</label>
-            <input type="text" id="perfil-nombres" value="Julio">
+            <input type="text" id="perfil-nombres">
           </div>
 
           <div class="form-row">
             <label>Apellidos</label>
-            <input type="text" id="perfil-apellidos" value="Mendoza">
+            <input type="text" id="perfil-apellidos">
           </div>
 
           <div class="form-row">
             <label>Cédula (C.I.)</label>
-            <input type="text" id="perfil-cedula" value="V-12.345.678" readonly>
+            <input type="text" id="perfil-cedula" readonly style="background-color: #f1f5f9;">
           </div>
 
           <div class="form-row">
             <label>Fecha de Nacimiento</label>
             <div class="input-with-icon">
-              <input type="text" id="perfil-nacimiento" value="15/05/1960">
+              <input type="text" id="perfil-nacimiento">
               <i class="fa-regular fa-calendar icon-right"></i>
             </div>
           </div>
 
           <div class="form-row">
             <label>Dirección</label>
-            <input type="text" id="perfil-direccion" value="Calle Real, Casa #45, Pie de Lucha">
+            <input type="text" id="perfil-direccion">
           </div>
 
           <div class="form-row">
             <label>Número Telefónico</label>
             <div class="input-with-icon">
               <i class="fa-solid fa-phone icon-left"></i>
-              <input type="tel" id="perfil-telefono" value="0412-5550123" class="has-left-icon">
+              <input type="tel" id="perfil-telefono" class="has-left-icon">
             </div>
           </div>
 
@@ -312,7 +311,7 @@
             <label>Correo Electrónico</label>
             <div class="input-with-icon">
               <i class="fa-solid fa-envelope icon-left"></i>
-              <input type="email" id="perfil-correo" value="julio.mendoza@email.com" class="has-left-icon">
+              <input type="email" id="perfil-correo" class="has-left-icon">
             </div>
           </div>
 
