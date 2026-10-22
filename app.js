@@ -1,8 +1,13 @@
-// --- CONFIGURACIÓN DE SUPABASE ---
-const SUPABASE_URL = "https://frhqpxhqmeqbdvwaar.supabase.co";
-const SUPABASE_KEY = "TU_LLAVE_ANON_PUBLICA"; // <-- PEGA AQUÍ TU LLAVE ANON DE SUPABASE
+// =========================================================================
+// PEGA AQUÍ TUS DATOS REALES DE SUPABASE (Settings ⚙️ -> API):
+// =========================================================================
+const SUPABASE_URL = "PEGA_AQUI_TU_PROJECT_URL"; 
+const SUPABASE_KEY = "PEGA_AQUI_TU_ANON_PUBLIC_KEY";
 
-const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+// Inicializar cliente Supabase
+const supabaseClient = (window.supabase && SUPABASE_URL !== "PEGA_AQUI_TU_PROJECT_URL") 
+  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) 
+  : null;
 
 // Variable global para almacenar los datos del usuario conectado
 let usuarioActivo = null;
@@ -66,7 +71,6 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
   const passwordInput = document.getElementById('login-password').value.trim();
   const btnSubmit = document.getElementById('btn-login-submit');
 
-  // Normalizar la cédula eliminando caracteres especiales
   const cleanCedula = cedulaInput.replace(/[^0-9]/g, '');
 
   if (!cleanCedula || !passwordInput) {
@@ -75,7 +79,7 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
   }
 
   if (!supabaseClient) {
-    alert("Error de conexión: No se pudo iniciar el cliente de Supabase.");
+    alert("Falta configurar la URL y la Llave de Supabase en el archivo app.js.");
     return;
   }
 
@@ -83,7 +87,7 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
     btnSubmit.innerText = "VERIFICANDO...";
     btnSubmit.disabled = true;
 
-    // Consultar el usuario en la base de datos de Supabase
+    // Consultar el usuario en Supabase
     const { data: usuario, error } = await supabaseClient
       .from('usuarios')
       .select('*')
@@ -106,33 +110,30 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
       return;
     }
 
-    // Usuario autenticado exitosamente
+    // Usuario autenticado con éxito
     usuarioActivo = usuario;
     cargarDatosEnInterfaz(usuarioActivo);
     navigateTo('screen-main-menu');
 
   } catch (err) {
     console.error(err);
-    alert("Ocurrió un error inesperado al iniciar sesión.");
+    alert("Error de conexión: Verifique que la URL de Supabase sea la correcta.");
   } finally {
     btnSubmit.innerText = "INICIAR SESIÓN";
     btnSubmit.disabled = false;
   }
 });
 
-// Cargar información real del usuario en la interfaz
+// Cargar información real del usuario en la app
 function cargarDatosEnInterfaz(usuario) {
-  // Menú Principal
   document.getElementById('user-name').innerText = `¡Bienvenido, ${usuario.nombres} ${usuario.apellidos}!`;
   document.getElementById('user-role').innerText = `${usuario.rol} - ${usuario.consejo_comunal}`;
   
-  // Saludo en el consultor jurídico
   const chatGreeting = document.getElementById('chat-greeting');
   if (chatGreeting) {
     chatGreeting.innerText = `¡Hola ${usuario.nombres} ${usuario.apellidos}! ¿En qué consulta jurídica puedo ayudarte hoy?`;
   }
 
-  // Pantalla de Perfil
   document.getElementById('profile-card-name').innerText = `${usuario.nombres} ${usuario.apellidos}`;
   document.getElementById('profile-card-role').innerText = `${usuario.rol} - ${usuario.consejo_comunal}`;
   document.getElementById('perfil-nombres').value = usuario.nombres || '';
@@ -143,7 +144,6 @@ function cargarDatosEnInterfaz(usuario) {
   document.getElementById('perfil-telefono').value = usuario.telefono || '';
   document.getElementById('perfil-correo').value = usuario.correo || '';
 
-  // Limpiar campos de contraseña
   document.getElementById('perfil-pass-actual').value = '';
   document.getElementById('perfil-pass-nueva').value = '';
   document.getElementById('perfil-pass-confirmar').value = '';
@@ -168,7 +168,6 @@ if (btnGuardarPerfil) {
 
     let passwordParaActualizar = usuarioActivo.password;
 
-    // Validación si desea cambiar contraseña
     if (passNueva || passActual || passConf) {
       if (passActual !== usuarioActivo.password) {
         alert("La contraseña actual no es correcta.");
@@ -211,7 +210,7 @@ if (btnGuardarPerfil) {
 
       usuarioActivo = data;
       cargarDatosEnInterfaz(usuarioActivo);
-      alert("¡Datos del perfil actualizados exitosamente en Supabase!");
+      alert("¡Datos del perfil actualizados en Supabase!");
       navigateTo('screen-main-menu');
 
     } catch (err) {
@@ -252,7 +251,7 @@ function sendConsultation() {
     const botMsg = document.createElement('div');
     botMsg.className = 'chat-bubble bot';
     botMsg.style.marginTop = '8px';
-    botMsg.innerHTML = `<p>Hemos recibido tu consulta sobre <strong>"${text}"</strong>. El equipo de mediación comunitaria responderá a la brevedad.</p>`;
+    botMsg.innerHTML = `<p>Hemos recibido tu consulta sobre <strong>"${text}"</strong>. El equipo de mediación responderá a la brevedad.</p>`;
     chatContainer.appendChild(botMsg);
   }, 600);
 }
