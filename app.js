@@ -2,7 +2,6 @@
 const SUPABASE_URL = "https://TU_PROYECTO.supabase.co";
 const SUPABASE_KEY = "TU_LLAVE_ANON_PUBLICA";
 
-// Cliente Supabase conectado sin colisión de nombres
 const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 
 // --- SISTEMA DE NAVEGACIÓN GLOBAL ---
@@ -12,13 +11,13 @@ function navigateTo(screenId) {
     screen.classList.remove('active');
   });
 
-  // Mostrar pantalla objetivo
+  // Mostrar la seleccionada
   const target = document.getElementById(screenId);
   if (target) {
     target.classList.add('active');
   }
 
-  // Mostrar u ocultar barra inferior si es Login o menú interno
+  // Barra inferior
   const bottomNav = document.getElementById('bottom-nav');
   if (screenId === 'screen-login') {
     bottomNav.style.display = 'none';
@@ -26,7 +25,7 @@ function navigateTo(screenId) {
     bottomNav.style.display = 'flex';
   }
 
-  // Actualizar icono activo en barra inferior
+  // Estado activo en los iconos inferiores
   const navHome = document.getElementById('nav-btn-home');
   const navProfile = document.getElementById('nav-btn-profile');
 
@@ -46,7 +45,7 @@ function navigateTo(screenId) {
 
 window.navigateTo = navigateTo;
 
-// Alternar visibilidad de contraseña (mostrar/ocultar con el icono del ojo)
+// Alternar visibilidad de contraseña
 function togglePasswordVisibility(inputId, iconElement) {
   const input = document.getElementById(inputId);
   if (!input) return;
@@ -87,7 +86,6 @@ if (btnGuardarPerfil) {
       return;
     }
 
-    // Actualiza el saludo del Menú Principal
     const userNameElem = document.getElementById('user-name');
     if (userNameElem) {
       userNameElem.innerText = `¡Bienvenido, ${nombres} ${apellidos}!`;
