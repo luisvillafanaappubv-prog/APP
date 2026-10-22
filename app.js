@@ -1,9 +1,9 @@
 // --- CONFIGURACIÓN DE SUPABASE ---
-// Reemplaza estas dos constantes con tus credenciales de Supabase:
 const SUPABASE_URL = "https://TU_PROYECTO.supabase.co";
 const SUPABASE_KEY = "TU_LLAVE_ANON_PUBLICA";
 
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+// Usamos supabaseClient y accedemos mediante window.supabase para evitar conflictos
+const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 
 // --- SISTEMA DE NAVEGACIÓN ENTRE PANTALLAS ---
 function navigateTo(screenId) {
@@ -26,55 +26,60 @@ function navigateTo(screenId) {
     bottomNav.style.display = 'flex';
   }
 
-  // Desplazar al inicio de la pantalla
+  // Desplazar al inicio
   window.scrollTo(0, 0);
 }
 
-// --- MANEJO DE INICIO DE SESIÓN ---
-document.getElementById('form-login').addEventListener('submit', async (e) => {
+// Hacer que navigateTo esté disponible globalmente para los botones del HTML
+window.navigateTo = navigateTo;
+
+// --- INICIO DE SESIÓN ---
+document.getElementById('form-login').addEventListener('submit', (e) => {
   e.preventDefault();
   
   const cedula = document.getElementById('login-cedula').value.trim();
   const password = document.getElementById('login-password').value.trim();
 
-  // Para pruebas inmediatas: Permite entrar automáticamente si hay datos
   if (cedula && password) {
-    console.log("Iniciando sesión con:", cedula);
-    // Transición directa al Menú Principal (Imagen 2)
+    console.log("Acceso concedido para:", cedula);
     navigateTo('screen-main-menu');
   } else {
     alert("Por favor ingrese su Cédula y Contraseña.");
   }
 });
 
-// --- FUNCIONALIDAD BÁSICA DEL CONSULTOR JURÍDICO (CHAT) ---
-document.getElementById('chat-send').addEventListener('click', sendConsultation);
-document.getElementById('chat-input').addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') sendConsultation();
-});
+// --- CONSULTOR JURÍDICO (CHAT) ---
+const sendBtn = document.getElementById('chat-send');
+const chatInput = document.getElementById('chat-input');
+
+if (sendBtn && chatInput) {
+  sendBtn.addEventListener('click', sendConsultation);
+  chatInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') sendConsultation();
+  });
+}
 
 function sendConsultation() {
-  const input = document.getElementById('chat-input');
-  const text = input.value.trim();
+  const text = chatInput.value.trim();
   if (!text) return;
 
   const chatContainer = document.getElementById('chat-messages');
 
-  // Mensaje del vecino
+  // Mensaje del usuario
   const userMsg = document.createElement('div');
   userMsg.className = 'chat-bubble user';
   userMsg.style.cssText = "align-self: flex-end; background: #e2e8f0; padding: 10px; border-radius: 12px; margin-top: 8px; font-size: 0.85rem;";
   userMsg.innerText = text;
   chatContainer.appendChild(userMsg);
 
-  input.value = '';
+  chatInput.value = '';
 
   // Respuesta simulada
   setTimeout(() => {
     const botMsg = document.createElement('div');
     botMsg.className = 'chat-bubble bot';
     botMsg.style.marginTop = '8px';
-    botMsg.innerHTML = `<p>Hemos recibido tu consulta sobre <strong>"${text}"</strong>. El equipo de mediación y la base legal comunitaria la evaluarán a la brevedad.</p>`;
+    botMsg.innerHTML = `<p>Hemos recibido tu consulta sobre <strong>"${text}"</strong>. El equipo de mediación comunitaria la responderá a la brevedad.</p>`;
     chatContainer.appendChild(botMsg);
-  }, 700);
+  }, 600);
 }
