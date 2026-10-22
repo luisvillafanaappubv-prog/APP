@@ -2,7 +2,7 @@
 // PEGA AQUÍ TUS DATOS REALES DE SUPABASE (Settings ⚙️ -> API):
 // =========================================================================
 const SUPABASE_URL = "https://joimemhrozfnvekdgzpm.supabase.co"; 
-const SUPABASE_KEY = "PEGA_AQUI_TU_ANON_PUBLIC_KEY";
+const SUPABASE_KEY = "sb_publishable_Mm_rg00ryH-d6ql8BmlvkQ_tt6SEYYG";
 
 // Inicializar cliente Supabase
 const supabaseClient = (window.supabase && SUPABASE_URL !== "PEGA_AQUI_TU_PROJECT_URL") 
