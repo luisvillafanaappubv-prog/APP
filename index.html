@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Comuna Negro Luis Villafaña - UBV</title>
+  <title>Herramientas Jurídicas para la Paz Vecinal - UBV</title>
   <link rel="stylesheet" href="style.css">
   <!-- Supabase CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <!-- Iconos Lucide/FontAwesome para la interfaz -->
+  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-  <!-- Contenedor con aspecto de teléfono móvil -->
+  <!-- Contenedor móvil central -->
   <div class="mobile-container">
     
-    <!-- ENCABEZADO COMÚN (Logos) -->
+    <!-- ENCABEZADO COMÚN: UBV (Izquierda) - COMUNA (Derecha) -->
     <header class="app-header">
-<img src="IMAGENES/logo1.png" alt="Logo UBV" class="header-logo logo-ubv">
-<img src="IMAGENES/logo2.png" alt="Logo Comuna" class="header-logo logo-comuna">
+      <img src="IMAGENES/logo1.png" alt="Logo UBV" class="header-logo logo-ubv">
+      <img src="IMAGENES/logo2.png" alt="Logo Comuna Negro Luis Villafaña" class="header-logo logo-comuna">
     </header>
 
     <!-- PANTALLA 1: INICIO DE SESIÓN -->
@@ -49,22 +49,20 @@
 
     <!-- PANTALLA 2: MENÚ PRINCIPAL -->
     <section id="screen-main-menu" class="screen">
-      <!-- Tarjeta de bienvenida de usuario -->
       <div class="user-card">
-        <div class="user-avatar-wrap">
+        <div class="user-avatar-wrap" onclick="navigateTo('screen-perfil')" style="cursor: pointer;">
           <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150" alt="Julio Mendoza" id="user-avatar">
         </div>
-        <div class="user-info">
+        <div class="user-info" onclick="navigateTo('screen-perfil')" style="cursor: pointer;">
           <h3 id="user-name">¡Bienvenido, Julio Mendoza!</h3>
           <p id="user-role">Vecino - Consejo Comunal "Pie de Lucha"</p>
         </div>
-        <div class="notification-badge-btn" onclick="navigateTo('screen-consultor')">
+        <div class="notification-badge-btn" onclick="alert('No tiene notificaciones pendientes')">
           <i class="fa-regular fa-bell"></i>
           <span class="dot"></span>
         </div>
       </div>
 
-      <!-- Menú de Opciones Principales -->
       <div class="menu-list">
         <button class="menu-btn btn-navy" onclick="navigateTo('screen-leyes')">
           <i class="fa-solid fa-scale-balanced menu-icon"></i>
@@ -264,17 +262,114 @@
       </div>
     </section>
 
-    <!-- BARRA DE NAVEGACIÓN INFERIOR (Oculta en la pantalla de Login) -->
+    <!-- PANTALLA 8: DATOS DEL PERFIL -->
+    <section id="screen-perfil" class="screen">
+      <div class="yellow-badge-header">
+        DATOS DEL PERFIL
+      </div>
+
+      <div class="card-container white-card profile-card">
+        <div class="profile-avatar-container">
+          <div class="profile-avatar-wrap">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150" alt="Julio Mendoza" id="profile-img">
+            <div class="avatar-edit-badge" title="Cambiar foto">
+              <i class="fa-solid fa-pen"></i>
+            </div>
+          </div>
+          <h3 class="profile-name">Julio Mendoza</h3>
+          <p class="profile-role">Vecino - Consejo Comunal "Pie de Lucha"</p>
+        </div>
+
+        <form id="form-perfil" class="profile-form">
+          <div class="form-row">
+            <label>Nombres</label>
+            <input type="text" id="perfil-nombres" value="Julio">
+          </div>
+
+          <div class="form-row">
+            <label>Apellidos</label>
+            <input type="text" id="perfil-apellidos" value="Mendoza">
+          </div>
+
+          <div class="form-row">
+            <label>Cédula (C.I.)</label>
+            <input type="text" id="perfil-cedula" value="V-12.345.678" readonly>
+          </div>
+
+          <div class="form-row">
+            <label>Fecha de Nacimiento</label>
+            <div class="input-with-icon">
+              <input type="text" id="perfil-nacimiento" value="15/05/1960">
+              <i class="fa-regular fa-calendar icon-right"></i>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label>Dirección</label>
+            <input type="text" id="perfil-direccion" value="Calle Real, Casa #45, Pie de Lucha">
+          </div>
+
+          <div class="form-row">
+            <label>Número Telefónico</label>
+            <div class="input-with-icon">
+              <i class="fa-solid fa-phone icon-left"></i>
+              <input type="tel" id="perfil-telefono" value="0412-5550123" class="has-left-icon">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label>Correo Electrónico</label>
+            <div class="input-with-icon">
+              <i class="fa-solid fa-envelope icon-left"></i>
+              <input type="email" id="perfil-correo" value="julio.mendoza@email.com" class="has-left-icon">
+            </div>
+          </div>
+
+          <div class="form-divider"></div>
+          <h4 class="security-subtitle">SEGURIDAD DE LA APLICACIÓN</h4>
+
+          <div class="form-row">
+            <label>Contraseña Actual</label>
+            <input type="password" id="perfil-pass-actual">
+          </div>
+
+          <div class="form-row">
+            <label>Nueva Contraseña</label>
+            <div class="input-with-icon">
+              <i class="fa-solid fa-lock icon-left"></i>
+              <input type="password" id="perfil-pass-nueva" class="has-left-icon has-right-icon">
+              <i class="fa-regular fa-eye icon-right cursor-pointer" onclick="togglePasswordVisibility('perfil-pass-nueva', this)"></i>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label>Confirmar Contraseña</label>
+            <div class="input-with-icon">
+              <i class="fa-solid fa-lock icon-left"></i>
+              <input type="password" id="perfil-pass-confirmar" class="has-left-icon has-right-icon">
+              <i class="fa-regular fa-eye icon-right cursor-pointer" onclick="togglePasswordVisibility('perfil-pass-confirmar', this)"></i>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="profile-actions">
+        <button type="button" class="btn btn-navy btn-action" id="btn-guardar-perfil">GUARDAR CAMBIOS</button>
+        <button type="button" class="btn btn-blue btn-action" onclick="navigateTo('screen-main-menu')">CANCELAR</button>
+      </div>
+    </section>
+
+    <!-- BARRA DE NAVEGACIÓN INFERIOR -->
     <nav class="bottom-nav" id="bottom-nav" style="display: none;">
-      <button class="nav-item active" onclick="navigateTo('screen-main-menu')">
+      <button class="nav-item active" id="nav-btn-home" onclick="navigateTo('screen-main-menu')">
         <i class="fa-solid fa-house"></i>
         <span>Menú Principal</span>
       </button>
-      <button class="nav-item" onclick="alert('Perfil en desarrollo')">
+      <button class="nav-item" id="nav-btn-profile" onclick="navigateTo('screen-perfil')">
         <i class="fa-regular fa-user"></i>
         <span>Perfil</span>
       </button>
-      <button class="nav-item" onclick="alert('Bandeja de notificaciones vacía')">
+      <button class="nav-item" id="nav-btn-notif" onclick="alert('No tiene notificaciones pendientes')">
         <i class="fa-regular fa-bell"></i>
         <span>Notificaciones</span>
       </button>
