@@ -141,18 +141,22 @@ body {
   font-size: 1.2rem;
   margin-top: 10px;
 }
+.btn-login:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
 
 .login-footer {
   text-align: center;
   margin-top: 25px;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: bold;
   color: #ffffff;
   text-shadow: 0 1px 2px rgba(0,0,0,0.4);
 }
 .login-footer a {
   color: #ffffff;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 /* TARJETA DE USUARIO */
