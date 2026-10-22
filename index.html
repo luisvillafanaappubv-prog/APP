@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Comuna Negro Luis Villafaña - UBV</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Iconos Lucide/FontAwesome para la interfaz -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Contenedor con aspecto de teléfono móvil -->
+  <div class="mobile-container">
+    
+    <!-- ENCABEZADO COMÚN (Logos) -->
+    <header class="app-header">
+      <img src="img/logo1.png" alt="Logo UBV" class="header-logo logo-ubv">
+      <img src="img/logo2.png" alt="Logo Comuna" class="header-logo logo-comuna">
+    </header>
+
+    <!-- PANTALLA 1: INICIO DE SESIÓN -->
+    <section id="screen-login" class="screen active">
+      <div class="login-header-text">
+        <h2>Herramientas Jurídicas para la Paz Vecinal.</h2>
+        <h3>Comunidad Luis Villafaña.</h3>
+      </div>
+
+      <form id="form-login" class="auth-form">
+        <label for="login-cedula">Cédula / Usuario</label>
+        <input type="text" id="login-cedula" placeholder="V-12345678" required>
+
+        <label for="login-password">Contraseña</label>
+        <div class="input-password-wrapper">
+          <input type="password" id="login-password" required>
+          <i class="fa-solid fa-lock input-icon"></i>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-login">INICIAR SESIÓN</button>
+      </form>
+
+      <div class="login-footer">
+        <a href="#" id="link-forgot">¿Olvidó su contraseña?</a> | 
+        <a href="#" id="link-register">Registrarse en Mesa Comunitaria.</a>
+      </div>
+    </section>
+
+    <!-- PANTALLA 2: MENÚ PRINCIPAL -->
+    <section id="screen-main-menu" class="screen">
+      <!-- Tarjeta de bienvenida de usuario -->
+      <div class="user-card">
+        <div class="user-avatar-wrap">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150" alt="Julio Mendoza" id="user-avatar">
+        </div>
+        <div class="user-info">
+          <h3 id="user-name">¡Bienvenido, Julio Mendoza!</h3>
+          <p id="user-role">Vecino - Consejo Comunal "Pie de Lucha"</p>
+        </div>
+        <div class="notification-badge-btn" onclick="navigateTo('screen-consultor')">
+          <i class="fa-regular fa-bell"></i>
+          <span class="dot"></span>
+        </div>
+      </div>
+
+      <!-- Menú de Opciones Principales -->
+      <div class="menu-list">
+        <button class="menu-btn btn-navy" onclick="navigateTo('screen-leyes')">
+          <i class="fa-solid fa-scale-balanced menu-icon"></i>
+          <span>Leyes y Convivencia Vecinal</span>
+        </button>
+
+        <button class="menu-btn btn-blue" onclick="navigateTo('screen-solicitudes')">
+          <i class="fa-solid fa-handshake-angle menu-icon"></i>
+          <span>Solicitudes y Mediación</span>
+        </button>
+
+        <button class="menu-btn btn-yellow" onclick="navigateTo('screen-directorio')">
+          <i class="fa-solid fa-address-book menu-icon"></i>
+          <span>Directorio Comunitario</span>
+        </button>
+
+        <button class="menu-btn btn-navy" onclick="navigateTo('screen-manual')">
+          <i class="fa-solid fa-shield-halved menu-icon"></i>
+          <span>Manual de Vulnerabilidad y Protección</span>
+        </button>
+
+        <button class="menu-btn btn-yellow" onclick="navigateTo('screen-consultor')">
+          <i class="fa-solid fa-user-graduate menu-icon"></i>
+          <span>Consultor Jurídico Online</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- PANTALLA 3: LEYES Y CONVIVENCIA VECINAL -->
+    <section id="screen-leyes" class="screen">
+      <div class="screen-title-banner">
+        <h2>LEYES Y CONVIVENCIA VECINAL</h2>
+      </div>
+
+      <div class="menu-list sub-menu-list">
+        <button class="menu-btn btn-navy">
+          <i class="fa-solid fa-book-bookmark menu-icon"></i>
+          <span>Constitución de la República Bolivariana de Venezuela</span>
+        </button>
+        <button class="menu-btn btn-blue">
+          <i class="fa-solid fa-city menu-icon"></i>
+          <span>Ordenanza para la Convivencia Ciudadana, el Civismo y la Justicia de Paz Comunal del Municipio Bolivariano Libertador</span>
+        </button>
+        <button class="menu-btn btn-yellow">
+          <i class="fa-solid fa-person-cane menu-icon"></i>
+          <span>Ley Orgánica para la Atención y Desarrollo Integral de las Personas Adultas Mayores</span>
+        </button>
+        <button class="menu-btn btn-navy">
+          <i class="fa-solid fa-venus menu-icon"></i>
+          <span>Ley Orgánica del Derecho a la Mujer a una Vida Libre de Violencia</span>
+        </button>
+        <button class="menu-btn btn-yellow">
+          <i class="fa-solid fa-children menu-icon"></i>
+          <span>Ley Orgánica para la Protección de Niños, Niñas y Adolescentes (LOPNNA)</span>
+        </button>
+        <button class="menu-btn btn-navy">
+          <i class="fa-solid fa-building-user menu-icon"></i>
+          <span>Ley del Régimen Especial de Arrendamiento de Inmuebles Destinados a Vivienda</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- PANTALLA 4: SOLICITUDES Y MEDIACIÓN -->
+    <section id="screen-solicitudes" class="screen">
+      <div class="yellow-badge-header">SOLICITUDES Y MEDIACIÓN</div>
+      <div class="card-container">
+        <div class="menu-list">
+          <button class="menu-btn btn-navy">
+            <i class="fa-solid fa-pen-to-square menu-icon"></i>
+            <span>Registro de Solicitud Vecinal</span>
+          </button>
+          <button class="menu-btn btn-navy">
+            <i class="fa-regular fa-clock menu-icon"></i>
+            <span>Estado de Mis Casos</span>
+          </button>
+          <button class="menu-btn btn-navy">
+            <i class="fa-regular fa-calendar-check menu-icon"></i>
+            <span>Agendar Mediación Comunal</span>
+          </button>
+          <button class="menu-btn btn-navy">
+            <i class="fa-solid fa-handshake menu-icon"></i>
+            <span>Acuerdos y Actas de Paz</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANTALLA 5: DIRECTORIO COMUNITARIO -->
+    <section id="screen-directorio" class="screen">
+      <div class="yellow-badge-header">
+        <i class="fa-solid fa-address-book"></i> DIRECTORIO COMUNITARIO
+      </div>
+
+      <div class="card-container white-card">
+        <h4 class="section-title">Contactos Comunitarios</h4>
+        <div class="directory-grid">
+          <div class="dir-item">
+            <i class="fa-solid fa-scale-balanced icon-circle"></i>
+            <strong>Juez de Paz Comunal</strong>
+            <small>[Número de contacto]</small>
+          </div>
+          <div class="dir-item">
+            <i class="fa-solid fa-bullhorn icon-circle"></i>
+            <strong>Líder Comunal</strong>
+            <small>[Número de contacto]</small>
+          </div>
+          <div class="dir-item">
+            <i class="fa-solid fa-users icon-circle"></i>
+            <strong>Voceros de la Comunidad</strong>
+            <small>[Lista de contactos]</small>
+          </div>
+          <div class="dir-item">
+            <i class="fa-solid fa-signs-post icon-circle"></i>
+            <strong>Jefes de Calle</strong>
+            <small>[Lista de números]</small>
+          </div>
+        </div>
+
+        <h4 class="section-title mt-3">Números Gubernamentales y de Emergencia</h4>
+        <div class="emergency-list">
+          <div class="emergency-item">
+            <i class="fa-solid fa-truck-droplet text-red"></i>
+            <div>
+              <strong>Bomberos Metropolitanos:</strong> (0212) 545-45-45 / (0212) 541-71-33
+            </div>
+          </div>
+          <div class="emergency-item">
+            <i class="fa-solid fa-triangle-exclamation text-orange"></i>
+            <div>
+              <strong>Protección Civil Caracas:</strong> (0212) 575-1823
+            </div>
+          </div>
+          <div class="emergency-item">
+            <i class="fa-solid fa-phone text-green"></i>
+            <div>
+              <strong>Emergencias Generales:</strong> 171 / 911 / *1
+            </div>
+          </div>
+          <div class="emergency-item">
+            <i class="fa-solid fa-passport text-blue"></i>
+            <div>
+              <strong>SAIME:</strong> 0800-7246300 (0800-SAIME)
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANTALLA 6: MANUAL DE VULNERABILIDAD Y PROTECCIÓN -->
+    <section id="screen-manual" class="screen">
+      <div class="yellow-badge-header">
+        <i class="fa-solid fa-book-shield"></i> MANUAL DE VULNERABILIDAD Y PROTECCIÓN
+      </div>
+      <div class="card-container white-card">
+        <h3 class="manual-title">Contenido del Manual</h3>
+        
+        <div class="manual-card">
+          <div class="manual-icon-box">
+            <i class="fa-solid fa-dove"></i>
+          </div>
+          <div class="manual-text">
+            <h4>Procedimientos para la paz Comunal</h4>
+            <p>Contiene el marco operativo y metodológico para la resolución de conflictos comunitarios y la promoción de la convivencia armónica.</p>
+          </div>
+        </div>
+
+        <div class="manual-card">
+          <div class="manual-icon-box">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <div class="manual-text">
+            <h4>Normas Especiales de la Comunidad Negro Luis Villafaña</h4>
+            <p>Establece las regulaciones y ordenanzas específicas adaptadas a la idiosincrasia, valores y necesidades de nuestra comunidad.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANTALLA 7: CONSULTOR JURÍDICO ONLINE -->
+    <section id="screen-consultor" class="screen">
+      <div class="yellow-badge-header">
+        <i class="fa-solid fa-graduation-cap"></i> CONSULTOR JURÍDICO ONLINE
+      </div>
+
+      <div class="chat-container">
+        <div class="chat-messages" id="chat-messages">
+          <div class="chat-bubble bot">
+            <div class="bot-badge"><i class="fa-solid fa-robot"></i></div>
+            <p>¡Hola Julio Mendoza! ¿En qué consulta jurídica puedo ayudarte hoy?</p>
+          </div>
+        </div>
+        
+        <div class="chat-input-bar">
+          <input type="text" id="chat-input" placeholder="Escribe tu consulta aquí...">
+          <button id="chat-send" class="btn-send"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BARRA DE NAVEGACIÓN INFERIOR (Oculta en la pantalla de Login) -->
+    <nav class="bottom-nav" id="bottom-nav" style="display: none;">
+      <button class="nav-item active" onclick="navigateTo('screen-main-menu')">
+        <i class="fa-solid fa-house"></i>
+        <span>Menú Principal</span>
+      </button>
+      <button class="nav-item" onclick="alert('Perfil en desarrollo')">
+        <i class="fa-regular fa-user"></i>
+        <span>Perfil</span>
+      </button>
+      <button class="nav-item" onclick="alert('Bandeja de notificaciones vacía')">
+        <i class="fa-regular fa-bell"></i>
+        <span>Notificaciones</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
