@@ -55,8 +55,8 @@ body {
 }
 
 .logo-comuna {
-  width: 90px;
-  height: 90px;
+  width: 88px;
+  height: 88px;
   object-fit: contain;
 }
 
@@ -250,7 +250,7 @@ body {
   margin-bottom: 14px;
 }
 
-/* TARJETAS BLANCAS Y CONTENIDOS (Directorio y Manual) */
+/* TARJETAS BLANCAS Y CONTENIDOS */
 .white-card {
   background: white;
   border-radius: 24px;
@@ -376,7 +376,7 @@ body {
   cursor: pointer;
 }
 
-/* PANTALLA DE PERFIL */
+/* --- ESTILOS DE LA PANTALLA DE PERFIL --- */
 .profile-card {
   padding: 14px 16px;
   margin-bottom: 14px;
@@ -386,13 +386,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .profile-avatar-wrap {
   position: relative;
-  width: 68px;
-  height: 68px;
+  width: 66px;
+  height: 66px;
   margin-bottom: 6px;
 }
 
@@ -437,7 +437,7 @@ body {
 .profile-form {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 6px;
 }
 
 .form-row {
