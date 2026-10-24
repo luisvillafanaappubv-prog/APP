@@ -30,7 +30,7 @@
 
       <form id="form-login" class="auth-form">
         <label for="login-cedula">Cédula / Usuario</label>
-        <input type="text" id="login-cedula" placeholder="Ej: 19255985" required autocomplete="username">
+        <input type="text" id="login-cedula" required autocomplete="username">
 
         <label for="login-password">Contraseña</label>
         <div class="input-password-wrapper">
@@ -49,8 +49,8 @@
     <!-- PANTALLA 2: MENÚ PRINCIPAL -->
     <section id="screen-main-menu" class="screen">
       <div class="user-card">
-        <div class="user-avatar-wrap">
-          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150" alt="Avatar" id="user-avatar">
+        <div class="user-avatar-wrap" id="user-avatar-box">
+          <img src="" alt="Avatar" id="user-avatar" style="display: none;">
         </div>
         <div class="user-info">
           <h3 id="user-name">¡Bienvenido!</h3>
@@ -260,8 +260,8 @@
 
       <div class="card-container white-card profile-card">
         <div class="profile-avatar-container">
-          <div class="profile-avatar-wrap">
-            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150" alt="Avatar" id="profile-img">
+          <div class="profile-avatar-wrap" id="profile-avatar-box">
+            <img src="" alt="Avatar" id="profile-img" style="display: none;">
             <div class="avatar-edit-badge" title="Cambiar foto">
               <i class="fa-solid fa-pen"></i>
             </div>
