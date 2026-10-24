@@ -64,6 +64,49 @@ function navigateTo(screenId) {
 
 window.navigateTo = navigateTo;
 
+// --- CARGAR Y MOSTRAR CONTENIDO DE LEYES ---
+async function cargarLey(rutaArchivo, tituloLey) {
+  const tituloElem = document.getElementById('visor-ley-titulo');
+  const contenidoElem = document.getElementById('visor-ley-contenido');
+
+  if (tituloElem) tituloElem.innerText = tituloLey;
+  if (contenidoElem) {
+    contenidoElem.innerHTML = '<p class="cargando-texto"><i class="fa-solid fa-spinner fa-spin"></i> Cargando contenido...</p>';
+  }
+
+  // Abrir pantalla del visor
+  navigateTo('screen-visor-ley');
+
+  try {
+    const respuesta = await fetch(rutaArchivo);
+    if (!respuesta.ok) {
+      throw new Error(`Archivo no encontrado (${respuesta.status})`);
+    }
+
+    const contenido = await respuesta.text();
+
+    if (!contenido || contenido.trim().length === 0) {
+      contenidoElem.innerHTML = '<p class="cargando-texto">El contenido de esta ley aún no ha sido cargado en el archivo correspondiente.</p>';
+      return;
+    }
+
+    // Si tiene etiquetas HTML lo interpreta como formato web, sino como texto limpio
+    if (/<[a-z][\s\S]*>/i.test(contenido)) {
+      contenidoElem.innerHTML = contenido;
+    } else {
+      contenidoElem.textContent = contenido;
+    }
+
+  } catch (error) {
+    console.error("Error al cargar la ley:", error);
+    if (contenidoElem) {
+      contenidoElem.innerHTML = `<p class="cargando-texto" style="color: #dc2626;"><i class="fa-solid fa-triangle-exclamation"></i> No se pudo cargar el archivo: ${rutaArchivo}</p>`;
+    }
+  }
+}
+
+window.cargarLey = cargarLey;
+
 // Alternar visibilidad de contraseña
 function togglePasswordVisibility(inputId, iconElement) {
   const input = document.getElementById(inputId);
