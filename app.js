@@ -261,6 +261,27 @@ if (btnGuardarPerfil) {
   });
 }
 
+// --- CERRAR SESIÓN ---
+const btnLogout = document.getElementById('btn-logout');
+if (btnLogout) {
+  btnLogout.addEventListener('click', () => {
+    if (confirm("¿Está seguro de que desea cerrar la sesión actual?")) {
+      // 1. Limpiar usuario en memoria
+      usuarioActivo = null;
+
+      // 2. Eliminar sesión de la memoria interna del equipo
+      localStorage.removeItem('usuarioComuna');
+
+      // 3. Limpiar formulario de inicio de sesión
+      const formLogin = document.getElementById('form-login');
+      if (formLogin) formLogin.reset();
+
+      // 4. Redirigir a la pantalla de inicio de sesión
+      navigateTo('screen-login');
+    }
+  });
+}
+
 // --- CONSULTOR JURÍDICO (CHAT) ---
 const sendBtn = document.getElementById('chat-send');
 const chatInput = document.getElementById('chat-input');
