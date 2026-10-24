@@ -81,6 +81,16 @@ function navigateTo(screenId) {
     target.classList.add('active');
   }
 
+  // Ocultar los logos automáticamente al entrar a cualquier función interna para ganar pantalla completa
+  const appHeader = document.getElementById('app-header');
+  if (appHeader) {
+    if (screenId === 'screen-main-menu' || screenId === 'screen-login' || screenId === 'screen-install-gate') {
+      appHeader.style.display = 'flex';
+    } else {
+      appHeader.style.display = 'none';
+    }
+  }
+
   const bottomNav = document.getElementById('bottom-nav');
   if (screenId === 'screen-login' || screenId === 'screen-install-gate') {
     bottomNav.style.display = 'none';
