@@ -129,6 +129,22 @@ function cargarDatosEnInterfaz(usuario) {
   document.getElementById('user-name').innerText = `¡Bienvenido, ${usuario.nombres} ${usuario.apellidos}!`;
   document.getElementById('user-role').innerText = `${usuario.rol} - ${usuario.consejo_comunal}`;
   
+  // Control de foto: si no tiene foto en la base de datos, deja el espacio vacío
+  const userAvatar = document.getElementById('user-avatar');
+  const profileImg = document.getElementById('profile-img');
+
+  if (usuario.foto) {
+    userAvatar.src = usuario.foto;
+    userAvatar.style.display = 'block';
+    profileImg.src = usuario.foto;
+    profileImg.style.display = 'block';
+  } else {
+    userAvatar.src = '';
+    userAvatar.style.display = 'none';
+    profileImg.src = '';
+    profileImg.style.display = 'none';
+  }
+
   const chatGreeting = document.getElementById('chat-greeting');
   if (chatGreeting) {
     chatGreeting.innerText = `¡Hola ${usuario.nombres} ${usuario.apellidos}! ¿En qué consulta jurídica puedo ayudarte hoy?`;
