@@ -68,8 +68,10 @@ window.navigateTo = navigateTo;
 async function cargarLey(rutaArchivo, tituloLey) {
   const tituloElem = document.getElementById('visor-ley-titulo');
   const contenidoElem = document.getElementById('visor-ley-contenido');
+  const buscadorInput = document.getElementById('buscador-ley-input');
 
   if (tituloElem) tituloElem.innerText = tituloLey;
+  if (buscadorInput) buscadorInput.value = ''; // Limpiar buscador al abrir ley
   if (contenidoElem) {
     contenidoElem.innerHTML = '<p class="cargando-texto"><i class="fa-solid fa-spinner fa-spin"></i> Cargando contenido...</p>';
   }
@@ -148,6 +150,72 @@ function formatearTextoLegal(texto) {
 }
 
 window.cargarLey = cargarLey;
+
+// --- BÚSQUEDA DE ARTÍCULOS O TÍTULOS EN EL VISOR ---
+function ejecutarBusquedaLey() {
+  const input = document.getElementById('buscador-ley-input');
+  const contenedor = document.getElementById('visor-ley-contenido');
+  if (!input || !contenedor) return;
+
+  const termino = input.value.trim();
+  if (!termino) return;
+
+  // Limpiar marcas previas si las hubiera
+  const marcasPrevias = contenedor.querySelectorAll('.resaltado-busqueda');
+  marcasPrevias.forEach(mark => {
+    mark.replaceWith(...mark.childNodes);
+  });
+
+  const elementos = contenedor.querySelectorAll('p, div.ley-subtitulo, div.ley-titulo-principal');
+  let elementoEncontrado = null;
+
+  // 1. Búsqueda prioritaria por número de artículo (ej: "2", "articulo 2" o "art 2")
+  const matchArticuloNum = termino.match(/^(?:art[ií]culo\s*|art\s*)?(\d+)/i);
+  if (matchArticuloNum) {
+    const num = matchArticuloNum[1];
+    const regexArt = new RegExp(`^Art[ií]culo\\s+${num}\\b`, 'i');
+
+    for (let el of elementos) {
+      if (regexArt.test(el.textContent.trim())) {
+        elementoEncontrado = el;
+        break;
+      }
+    }
+  }
+
+  // 2. Búsqueda por texto general o título
+  if (!elementoEncontrado) {
+    const terminoLower = termino.toLowerCase();
+    for (let el of elementos) {
+      if (el.textContent.toLowerCase().includes(terminoLower)) {
+        elementoEncontrado = el;
+        break;
+      }
+    }
+  }
+
+  if (elementoEncontrado) {
+    // Resalta el texto buscado
+    const regexTermino = new RegExp(`(${termino})`, 'gi');
+    elementoEncontrado.innerHTML = elementoEncontrado.innerHTML.replace(regexTermino, '<mark class="resaltado-busqueda">$1</mark>');
+
+    // Se desplaza de forma fluida hasta el elemento
+    elementoEncontrado.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } else {
+    alert(`No se encontró ningún artículo o título que coincida con: "${termino}".`);
+  }
+}
+
+// Conectar evento al botón de búsqueda y tecla Enter
+const btnBuscarLey = document.getElementById('btn-buscar-ley');
+const inputBuscarLey = document.getElementById('buscador-ley-input');
+
+if (btnBuscarLey && inputBuscarLey) {
+  btnBuscarLey.addEventListener('click', ejecutarBusquedaLey);
+  inputBuscarLey.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') ejecutarBusquedaLey();
+  });
+}
 
 // Alternar visibilidad de contraseña
 function togglePasswordVisibility(inputId, iconElement) {
