@@ -12,8 +12,25 @@ const supabaseClient = (window.supabase && SUPABASE_URL !== "PEGA_AQUI_TU_PROJEC
 // Variable global para almacenar los datos del usuario conectado
 let usuarioActivo = null;
 
-// 1. RECUPERAR DE LA MEMORIA INTERNA AL CARGAR LA APP
+// Captura del evento de instalación nativa
+let eventoInstalacion = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  eventoInstalacion = e;
+});
+
+// 1. CONTROL DE ACCESO OBLIGATORIO: NAVEGADOR VS APP INSTALADA
 window.addEventListener('DOMContentLoaded', () => {
+  // Comprobar si se está ejecutando como aplicación instalada
+  const esModoApp = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+
+  if (!esModoApp) {
+    // Si la abren en el navegador, se bloquea y se muestra la pantalla de instalación
+    navigateTo('screen-install-gate');
+    return;
+  }
+
+  // Si ya es la app instalada, verificar si hay sesión guardada o mostrar login
   const datosLocales = localStorage.getItem('usuarioComuna');
   if (datosLocales) {
     try {
@@ -23,12 +40,38 @@ window.addEventListener('DOMContentLoaded', () => {
     } catch (err) {
       console.error("Error al cargar datos locales:", err);
       localStorage.removeItem('usuarioComuna');
+      navigateTo('screen-login');
+    }
+  } else {
+    navigateTo('screen-login');
+  }
+});
+
+// Botón de instalación
+document.addEventListener('click', (e) => {
+  if (e.target && e.target.closest('#btn-instalar-app')) {
+    if (eventoInstalacion) {
+      eventoInstalacion.prompt();
+      eventoInstalacion.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          alert("¡Instalación completada! Abre la app desde tu pantalla de inicio.");
+        }
+        eventoInstalacion = null;
+      });
+    } else {
+      alert("Para instalar, presiona los 3 puntos (⋮) de tu navegador y elige 'Instalar aplicación' o 'Agregar a la pantalla principal'.");
     }
   }
 });
 
 // --- SISTEMA DE NAVEGACIÓN GLOBAL ---
 function navigateTo(screenId) {
+  // Si está en el navegador, impedir navegar a cualquier otra pantalla que no sea la de instalación
+  const esModoApp = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  if (!esModoApp) {
+    screenId = 'screen-install-gate';
+  }
+
   document.querySelectorAll('.screen').forEach(screen => {
     screen.classList.remove('active');
   });
@@ -39,7 +82,7 @@ function navigateTo(screenId) {
   }
 
   const bottomNav = document.getElementById('bottom-nav');
-  if (screenId === 'screen-login') {
+  if (screenId === 'screen-login' || screenId === 'screen-install-gate') {
     bottomNav.style.display = 'none';
   } else {
     bottomNav.style.display = 'flex';
