@@ -90,11 +90,12 @@ async function cargarLey(rutaArchivo, tituloLey) {
       return;
     }
 
-    // Si tiene etiquetas HTML lo interpreta como formato web, sino como texto limpio
+    // Si ya posee etiquetas HTML lo interpreta directo
     if (/<[a-z][\s\S]*>/i.test(contenido)) {
       contenidoElem.innerHTML = contenido;
     } else {
-      contenidoElem.textContent = contenido;
+      // Aplica formato automático a texto plano
+      contenidoElem.innerHTML = formatearTextoLegal(contenido);
     }
 
   } catch (error) {
@@ -103,6 +104,47 @@ async function cargarLey(rutaArchivo, tituloLey) {
       contenidoElem.innerHTML = `<p class="cargando-texto" style="color: #dc2626;"><i class="fa-solid fa-triangle-exclamation"></i> No se pudo cargar el archivo: ${rutaArchivo}</p>`;
     }
   }
+}
+
+// Función auxiliar para formatear títulos, subtítulos y artículos
+function formatearTextoLegal(texto) {
+  const lineas = texto.split('\n');
+  let html = '';
+  let primerTituloDetectado = false;
+
+  for (let i = 0; i < lineas.length; i++) {
+    const linea = lineas[i].trim();
+
+    if (!linea) {
+      continue;
+    }
+
+    // 1. Título principal: primera línea con nombre de la norma (rojo, centrado y negrita)
+    if (!primerTituloDetectado && /^(Constituci[oó]n|Ley|Ordenanza)/i.test(linea)) {
+      html += `<div class="ley-titulo-principal">${linea}</div>`;
+      primerTituloDetectado = true;
+      continue;
+    }
+
+    // 2. Títulos y subtítulos (Título I, Capítulo II, Principios Fundamentales, etc.)
+    if (/^(T[ií]tulo|Cap[ií]tulo|Secci[oó]n|Disposici[oó]n)/i.test(linea) || 
+        (i > 0 && /^(T[ií]tulo|Cap[ií]tulo)/i.test(lineas[i - 1].trim()))) {
+      html += `<div class="ley-subtitulo">${linea}</div>`;
+      continue;
+    }
+
+    // 3. Artículos: resalta el número en negrita
+    if (/^Art[ií]culo\s+\d+/i.test(linea)) {
+      const lineaFormateada = linea.replace(/^(Art[ií]culo\s+\d+[\.\s°º]*)/i, '<strong class="ley-articulo-num">$1</strong> ');
+      html += `<p style="margin-bottom: 12px; text-align: justify;">${lineaFormateada}</p>`;
+      continue;
+    }
+
+    // Párrafos regulares
+    html += `<p style="margin-bottom: 10px; text-align: justify;">${linea}</p>`;
+  }
+
+  return html;
 }
 
 window.cargarLey = cargarLey;
