@@ -267,6 +267,47 @@ body {
   margin-bottom: 14px;
 }
 
+/* --- VISOR DE LEYES Y ARTÍCULOS --- */
+.visor-ley-nav {
+  margin-bottom: 6px;
+}
+
+.btn-volver-ley {
+  background: none;
+  border: none;
+  color: #15335b;
+  font-size: 0.9rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.btn-volver-ley:hover {
+  background-color: rgba(21, 51, 91, 0.1);
+}
+
+.visor-ley-body {
+  padding: 16px;
+  max-height: 570px;
+  overflow-y: auto;
+  line-height: 1.6;
+  font-size: 0.88rem;
+  color: #1e293b;
+  white-space: pre-line;
+  word-break: break-word;
+}
+
+.cargando-texto {
+  text-align: center;
+  color: #64748b;
+  padding: 30px 10px;
+  font-size: 0.9rem;
+}
+
 /* TARJETAS BLANCAS Y CONTENIDOS */
 .white-card {
   background: white;
