@@ -12,6 +12,21 @@ const supabaseClient = (window.supabase && SUPABASE_URL !== "PEGA_AQUI_TU_PROJEC
 // Variable global para almacenar los datos del usuario conectado
 let usuarioActivo = null;
 
+// 1. RECUPERAR DE LA MEMORIA INTERNA AL CARGAR LA APP
+window.addEventListener('DOMContentLoaded', () => {
+  const datosLocales = localStorage.getItem('usuarioComuna');
+  if (datosLocales) {
+    try {
+      usuarioActivo = JSON.parse(datosLocales);
+      cargarDatosEnInterfaz(usuarioActivo);
+      navigateTo('screen-main-menu');
+    } catch (err) {
+      console.error("Error al cargar datos locales:", err);
+      localStorage.removeItem('usuarioComuna');
+    }
+  }
+});
+
 // --- SISTEMA DE NAVEGACIÓN GLOBAL ---
 function navigateTo(screenId) {
   document.querySelectorAll('.screen').forEach(screen => {
@@ -110,8 +125,9 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
       return;
     }
 
-    // Usuario autenticado con éxito
+    // Usuario autenticado con éxito y guardado en la memoria interna
     usuarioActivo = usuario;
+    localStorage.setItem('usuarioComuna', JSON.stringify(usuarioActivo));
     cargarDatosEnInterfaz(usuarioActivo);
     navigateTo('screen-main-menu');
 
@@ -224,9 +240,15 @@ if (btnGuardarPerfil) {
         return;
       }
 
+      // 1. Guardar en la variable en memoria
       usuarioActivo = data;
+
+      // 2. Guardar obligatoriamente en la memoria interna del equipo
+      localStorage.setItem('usuarioComuna', JSON.stringify(usuarioActivo));
+
+      // 3. Reflejar en la interfaz visual
       cargarDatosEnInterfaz(usuarioActivo);
-      alert("¡Datos del perfil actualizados en Supabase!");
+      alert("¡Datos guardados con éxito en la memoria interna y en Supabase!");
       navigateTo('screen-main-menu');
 
     } catch (err) {
