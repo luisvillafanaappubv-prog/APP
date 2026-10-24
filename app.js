@@ -181,6 +181,58 @@ function cargarDatosEnInterfaz(usuario) {
   document.getElementById('perfil-pass-confirmar').value = '';
 }
 
+// Variable temporal para almacenar la imagen seleccionada
+let fotoTemporalBase64 = null;
+
+// Capturar foto desde cámara o galería de archivos
+const inputFotoPerfil = document.getElementById('input-foto-perfil');
+if (inputFotoPerfil) {
+  inputFotoPerfil.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        // Optimizar y redimensionar imagen para ahorro de memoria
+        const canvas = document.createElement('canvas');
+        const MAX_DIM = 280;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > MAX_DIM) {
+            height *= MAX_DIM / width;
+            width = MAX_DIM;
+          }
+        } else {
+          if (height > MAX_DIM) {
+            width *= MAX_DIM / height;
+            height = MAX_DIM;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        fotoTemporalBase64 = canvas.toDataURL('image/jpeg', 0.85);
+
+        // Vista previa inmediata en la pantalla de perfil
+        const profileImg = document.getElementById('profile-img');
+        if (profileImg) {
+          profileImg.src = fotoTemporalBase64;
+          profileImg.style.display = 'block';
+        }
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 // --- GUARDAR CAMBIOS DE PERFIL EN SUPABASE ---
 const btnGuardarPerfil = document.getElementById('btn-guardar-perfil');
 if (btnGuardarPerfil) {
@@ -216,6 +268,9 @@ if (btnGuardarPerfil) {
       passwordParaActualizar = passNueva;
     }
 
+    // Determinar la foto definitiva a guardar
+    const fotoParaGuardar = fotoTemporalBase64 !== null ? fotoTemporalBase64 : (usuarioActivo.foto || null);
+
     try {
       btnGuardarPerfil.innerText = "GUARDANDO...";
       btnGuardarPerfil.disabled = true;
@@ -229,7 +284,8 @@ if (btnGuardarPerfil) {
           direccion: direccion,
           telefono: telefono,
           correo: correo,
-          password: passwordParaActualizar
+          password: passwordParaActualizar,
+          foto: fotoParaGuardar
         })
         .eq('cedula', usuarioActivo.cedula)
         .select()
@@ -242,13 +298,14 @@ if (btnGuardarPerfil) {
 
       // 1. Guardar en la variable en memoria
       usuarioActivo = data;
+      fotoTemporalBase64 = null;
 
       // 2. Guardar obligatoriamente en la memoria interna del equipo
       localStorage.setItem('usuarioComuna', JSON.stringify(usuarioActivo));
 
       // 3. Reflejar en la interfaz visual
       cargarDatosEnInterfaz(usuarioActivo);
-      alert("¡Datos guardados con éxito en la memoria interna y en Supabase!");
+      alert("¡Perfil y foto guardados con éxito en la memoria interna y en Supabase!");
       navigateTo('screen-main-menu');
 
     } catch (err) {
