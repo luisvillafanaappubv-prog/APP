@@ -290,9 +290,59 @@ body {
   background-color: rgba(21, 51, 91, 0.1);
 }
 
+/* Buscador de artículos y títulos */
+.buscador-ley-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 4px 6px 4px 14px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  border: 1.5px solid #cbd5e1;
+}
+
+.buscador-ley-wrap input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 0.85rem;
+  background: transparent;
+  color: #0f172a;
+}
+
+.btn-buscar-ley {
+  background-color: #15335b;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.btn-buscar-ley:hover {
+  background-color: #244b7d;
+}
+
+/* Resaltado del texto o artículo encontrado */
+.resaltado-busqueda {
+  background-color: #fef08a;
+  color: #854d0e;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-weight: bold;
+  border-bottom: 2px solid #ca8a04;
+}
+
 .visor-ley-body {
   padding: 16px;
-  max-height: 570px;
+  max-height: 510px;
   overflow-y: auto;
   line-height: 1.6;
   font-size: 0.88rem;
