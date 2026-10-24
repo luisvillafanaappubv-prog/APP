@@ -4,6 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Comuna Negro Luis Villafaña - UBV</title>
+  
+  <!-- Configuración PWA para instalación en teléfonos -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1b385e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Comuna Paz">
+  <link rel="apple-touch-icon" href="IMAGENES/LOGOAPP2.png">
+
   <link rel="stylesheet" href="style.css">
   <!-- Supabase CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -399,6 +408,16 @@
 
   </div>
 
+  <!-- Registro del instalador móvil (PWA) -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(() => console.log('Instalador PWA activo y listo.'))
+          .catch((err) => console.error('Error al registrar PWA:', err));
+      });
+    }
+  </script>
   <script src="app.js"></script>
 </body>
 </html>
