@@ -15,28 +15,35 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-body {
-  background-color: #0f172a;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(180deg, var(--bg-gradient-top) 0%, #caddec 40%, var(--bg-gradient-bottom) 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
 }
 
-/* Marco móvil adaptable */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+/* Contenedor adaptado a pantalla completa de teléfono real */
 .mobile-container {
   width: 100%;
-  max-width: 414px;
-  height: 896px;
-  max-height: 100vh;
-  background: linear-gradient(180deg, var(--bg-gradient-top) 0%, #caddec 40%, var(--bg-gradient-bottom) 100%);
-  border-radius: 36px;
+  min-height: 100dvh;
+  max-width: 480px;
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-  border: 8px solid #2d3748;
 }
 
 /* Encabezado */
