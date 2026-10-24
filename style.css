@@ -547,6 +547,35 @@ body {
   text-align: center;
 }
 
+/* Botón de Cerrar Sesión */
+.profile-logout-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 6px;
+  margin-bottom: 12px;
+}
+
+.btn-logout {
+  width: 100%;
+  background-color: #dc2626;
+  color: #ffffff;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.btn-logout:hover {
+  background-color: #b91c1c;
+}
+
+/* BARRA DE NAVEGACIÓN INFERIOR */
+
 /* BARRA DE NAVEGACIÓN INFERIOR */
 .bottom-nav {
   position: absolute;
