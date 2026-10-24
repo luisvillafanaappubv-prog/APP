@@ -97,7 +97,7 @@
       </div>
 
       <div class="menu-list sub-menu-list">
-        <button class="menu-btn btn-navy">
+        <button class="menu-btn btn-navy" onclick="cargarLey('LEYES/1', 'Constitución de la República Bolivariana de Venezuela')">
           <i class="fa-solid fa-book-bookmark menu-icon"></i>
           <span>Constitución de la República Bolivariana de Venezuela</span>
         </button>
@@ -121,6 +121,23 @@
           <i class="fa-solid fa-building-user menu-icon"></i>
           <span>Ley del Régimen Especial de Arrendamiento de Inmuebles Destinados a Vivienda</span>
         </button>
+      </div>
+    </section>
+
+    <!-- PANTALLA VISOR DE LEYES Y ARTÍCULOS -->
+    <section id="screen-visor-ley" class="screen">
+      <div class="visor-ley-nav">
+        <button class="btn-volver-ley" onclick="navigateTo('screen-leyes')">
+          <i class="fa-solid fa-chevron-left"></i> Volver a Leyes
+        </button>
+      </div>
+
+      <div class="yellow-badge-header" id="visor-ley-titulo">
+        Constitución de la República Bolivariana de Venezuela
+      </div>
+
+      <div class="card-container white-card visor-ley-body" id="visor-ley-contenido">
+        <p class="cargando-texto"><i class="fa-solid fa-spinner fa-spin"></i> Cargando artículos...</p>
       </div>
     </section>
 
